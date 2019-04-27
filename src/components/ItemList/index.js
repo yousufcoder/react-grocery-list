@@ -1,8 +1,9 @@
 import React from 'react';
 
 const ItemListIndex =({items})=>{
+    console.log(items);
     const Total= items.reduce((initialValue,item)=>{
-        return initialValue+(item.Quantity*item.Amount);
+        return initialValue+(item.quantity*item.amount);
     },0);
     return(
         <div>
@@ -15,11 +16,11 @@ const ItemListIndex =({items})=>{
                 </tr>
                 </thead>
                 <tbody>
-                { items.map(({Name,Quantity,Amount},index) => (
+                { items.map(({itemname,quantity,amount},index) => (
                      <tr key={`items-${index}`}>
-                     <td>{Name}</td>
-                     <td>{Quantity}</td>
-                     <td>{Amount}</td>
+                     <td>{itemname}</td>
+                     <td>{quantity}</td>
+                     <td>{amount}</td>
                  </tr>
                 ))}
                 <tr>

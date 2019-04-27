@@ -31,9 +31,9 @@ class ItemForm extends Component {
         constructor(props){
             super(props);
             this.state={
-                Name:'',
-                Quantity:0,
-                Amount:0
+                itemname:'',
+                quantity:0,
+                amount:0
             }
         }
         handleChange=(e)=>{
@@ -48,20 +48,20 @@ class ItemForm extends Component {
             this.props.pushItems(this.state);
         }
     render(){
-        const {Name,Quantity,Amount}=this.state;
+        const {itemname,quantity,amount}=this.state;
         return(
             <Form onSubmit={this.handleSubmit}>
                 <div className="name-input">
                     <label htmlFor="Name">Enter Item</label>
-                    <input name="Name" placeholder="Enter ItemName" type="text" value={Name} onChange={this.handleChange}/>
+                    <input name="itemname" placeholder="Enter ItemName" type="text" value={itemname} onChange={this.handleChange}/>
                 </div>
                 <div>
                     <label htmlFor="Quantity">Quantity</label>
-                    <input name="Quantity" placeholder="Quantity" type="number" value={Quantity} onChange={this.handleChange}/>
+                    <input name="quantity" placeholder="Quantity" type="number" value={quantity} onChange={this.handleChange}/>
                 </div>
                 <div>
                     <label htmlFor="Amount">Amount</label>
-                    <input name="Amount" placeholder="Amount" type="number" value={Amount} onChange={this.handleChange}/>
+                    <input name="amount" placeholder="Amount" type="number" value={amount} onChange={this.handleChange}/>
                 </div>
                 <div className="btn-div">
                 <button type="submit">Add Item</button>

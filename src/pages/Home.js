@@ -1,35 +1,13 @@
 import React,{Component} from 'react';
+import axios from 'axios';
 import ItemListIndex from '../components/ItemList';
 import styled from 'styled-components';
 import ItemForm from '../components/ItemForm';
+import Loading from '../components/Loading';
 
-const GroceryItems=[
-    {
-        Name:"Milk",
-        Quantity:1,
-        Amount:20
-    },
-    {
-        Name:"sugar",
-        Quantity:1,
-        Amount:37
-    },
-    {
-        Name:"TeaPowder",
-        Quantity:1,
-        Amount:50
-    },
-    {
-        Name:"Almonds",
-        Quantity:1,
-        Amount:800
-    },
-    {
-        Name:"cashew nut",
-        Quantity:1,
-        Amount:1100
-    }
-]
+
+
+
 
 const Container= styled.div`
     display:flex;
@@ -51,7 +29,8 @@ class Home extends Component{
     constructor(){
         super();
         this.state={
-            items:GroceryItems
+            items:[],
+            loaded:false
         }
     }
     handleItemPush=(item) => {
@@ -63,15 +42,37 @@ class Home extends Component{
         })
     }
     render(){
-        const{items}=this.state;
+        const{items,loaded}=this.state;
         return(
             <Container>
                 <h2>Grocery List</h2>
-                <ItemForm pushItems={this.handleItemPush}/>
-                <ItemListIndex items={items} />
+                {!loaded?<Loading/>:
+                (
+                    <div>
+                        <ItemForm pushItems={this.handleItemPush}/>
+                        <ItemListIndex items={items} />
+                    </div>
+                )
+
+                }
+               
             </Container>
 
         )
+    }
+    componentDidMount(){
+        axios.get('http://localhost:3003/api/item-list').then(({data})=>{
+          
+            this.setState({
+                items: data,
+                loaded:true
+            });
+            
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+        
     }
 }
 export default Home;
