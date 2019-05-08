@@ -34,12 +34,21 @@ class Home extends Component{
         }
     }
     handleItemPush=(item) => {
-        this.setState({
-            items:  [
-                ...this.state.items,
-                item
-            ]
-        })
+        axios.post('http://localhost:3003/api/item-list', {
+            id: item.id,
+            itemname: item.itemname,
+            quantity: item.quantity,
+            amount: item.amount,
+        }).then(({data})=> {
+            this.setState({
+                items:  [
+                    ...this.state.items,
+                    item
+                ]
+            })
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
     render(){
         const{items,loaded}=this.state;
@@ -72,6 +81,7 @@ class Home extends Component{
         .catch(function(error){
             console.log(error);
         });
+        
         
     }
 }
